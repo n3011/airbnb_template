@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}mVision{% endblock %}
+
+{% block content %}
+
+<!--The code add the navigation bar with bottom toggle option also possiblity of dropdown menus -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">nEHome</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">nEHome</a></li>
+        <!--<li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul> -->
+
+        <li class = "active"><a href="/maps/temporoom/search">Private Room</a></li>
+	 <li><a href="/">PG/Hostel</a></li>
+        <li><a href="/listrent">Rent</a></li>
+        <li><a href="/roomneed">Post Ad</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" ></span>{{ current_user.firstname}}!</a></li>
+        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-user"></span>   Logout</a></p>
+        {% else %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="{{ url_for('oauth_authorize', provider='facebook') }}"> <span class="glyphicon glyphicon-user"></span>Login with Facebook</a></p>
+        <li><a href="{{ url_for('oauth_authorize', provider='twitter') }}"><span class="glyphicon glyphicon-user"></span>Login with Twitter</a></p>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<hr>
+<!--
+<div align="left">
+     {{location_accept.js}}
+    <script type="text/javascript">
+        document.write('{{location_accept.html}}');
+    </script>
+</div>
+-->
+<!-- Start of vertical split-->
+<body>
+<div style="width:100%;">
+    <div style="float:left;width:50%">
+        <div class="col-xs-12" style="height:100px;width=300px"></div>
+            <!-- Begin page content -->
+            {{location_accept.js}}
+            {{location_accept.html}}
+            <div align="left">
+                <form method="POST" action="/maps/temporoom">
+                <br>
+                <h3 style='color:blue;'>GET LOCATION</h3>
+                <p><input type="text" name="address" value="" placeholder="Enter an address"></p>
+                <p><class="submit"><input type="submit" name="Locate" value="Locate"></p>
+                <p> Current Location</p>
+                <p>Lattitude:{{lat}}, Longitude:{{lng}}</p>
+                <br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+   <div style="float:right;">
+            <div align="left">
+                <form method="POST" action="/maps/temporoom/results">
+                <br>
+                <h3 style='color:blue;'>Where Do You Wanna Stay?</h3>
+                <p><input type="text" name="address" value="Kamrup" placeholder="Enter an address"></p>
+                <p><input type="text" class="datepicker1"  name ="checkin" id="calendar1" placeholder="Check In" />
+                <input type="text" class="datepicker2" name="checkout" id="calendar2" placeholder="Check Out" />
+                </p>
+                <p><class="submit"><input type="submit" name="Search" value="Search"></p>
+                <p> Current Location</p>
+                <p>Lattitude:{{lat}}, Longitude:{{lng}}</p>
+                <br><br>
+                </form>
+            </div>
+            <div>
+                {% if has_result %}
+                   {% for data_id in idx %}
+                   <div class="media">
+                      <p>{{result[data_id].district}}, {{result[data_id].minstay}}, {{result[data_id].baseprice}}</p>
+                      <p>{{result[data_id].rtype}} {{result[data_id].posted}} </p>
+
+                     <p> <a class="pull-left" href="#"><img class="media-object" width="100" height="100" src="{{ url_for('static', filename = 'images/database/'+result[data_id].images[0] ) }}"></a></p>
+                   </div>
+                   {% endfor %}
+                {%endif%}
+            </div>
+   </div>
+
+ </div>
+ <div style="clear:both"></div>
+
+ <!--End of Vertical Split-->
+ <hr>
+ </body>
+{% endblock %}

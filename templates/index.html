@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}mVision{% endblock %}
+
+{% block content %}
+
+<!--The code add the navigation bar with bottom toggle option also possiblity of dropdown menus -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">mVision</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class = "active"><a href="/">nEHome</a></li>
+        <!--<li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul> -->
+        <!--</li> -->
+        <li><a href="maps/temporoom/search">Private Room</a></li>
+         <li><a href="/">PG/Hostel</a></li>
+        <li><a href="/listrent">Rent</a></li>
+        <li><a href="/roomneed">Post Ad</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" ></span>{{ current_user.firstname}}!</a></li>
+        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-user"></span>   Logout</a></p>
+        {% else %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="{{ url_for('oauth_authorize', provider='facebook') }}"> <span class="glyphicon glyphicon-user"></span>Login with Facebook</a></p>
+        <li><a href="{{ url_for('oauth_authorize', provider='twitter') }}"><span class="glyphicon glyphicon-user"></span>Login with Twitter</a></p>
+        {% endif %}
+       <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login </a></li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="col-xs-12" style="height:100px;"></div>
+    <!-- Begin page content -->
+      <div class="page-header">
+        <h1><a href="/">mVision</a></h1>
+      </div>
+
+    <hr>
+
+{% endblock %}

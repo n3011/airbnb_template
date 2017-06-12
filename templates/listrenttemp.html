@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Text Input Control</title>
+</head>
+<body>
+<form id="listrent" action="handleform/rent" method="post" enctype="multipart/form-data">
+First name:  <input type="text" name="first_name" />
+<br>
+Last name:  <input type="text" name="last_name" />
+<div class="amenities">
+       <input id="amenities1" type="checkbox" name="amenities" value="essentials"> Essentials (Towels, bed sheets, soap and toilet paper)<br>
+        <input id="amenities2" type="checkbox" name="amenities" value="wifi"> Wifi<br>
+        <input id="amenities3" type="checkbox" name="amenities" value="shampoo"> Shampoo<br>
+        <input id="amenities4" type="checkbox" name="amenities" value="tv"> TV<br>
+        <input id="amenities5" type="checkbox" name="amenities" value="ac"> Air Conditioning<br>
+        <input id="amenities6" type="checkbox" name="amenities" value="iron"> Iron<br>
+        <input id="amenities7" type="checkbox" name="amenities" value="wardrobe"> Wardrobe<br>
+        <input id="amenities8" type="checkbox" name="amenities" value="geaser"> Heater<br>
+        <input id="amenities9" type="checkbox" name="amenities" value="dryer"> Hair dryer<br>
+        <input id="amenities10" type="checkbox" name="amenities" value="breakfast"> Breakfast, coffee, tea<br>
+        <input id="amenities11" type="checkbox" name="amenities" value="fireplace"> Fireplace<br>
+        <input id="amenities12" type="checkbox" name="amenities" value="cupboard"> Workspace<br>
+        <input id="amenities13" type="checkbox" name="amenities" value="swimming_pool"> Swimming pool<br>
+        <input id="amenities14" type="checkbox" name="amenities" value="washer"> Washing machine<br>
+        <input id="amenities15" type="checkbox" name="amenities" value="cooking"> Cooking<br>
+        <input id="amenities16" type="checkbox" name="amenities" value="petowner"> Pets in the house<br>
+        <input id="amenities17" type="checkbox" name="amenities" value="security"> Security<br>
+</div>
+<h3 style='color:green;'>What type of property is this?</h3>
+    <select id="rentproptype" name="rentproptype">
+        <option value="apartment">Apartment </option>
+        <option value="house">House </option>
+        <option value="bedBreakfast">Bed & Breakfast </option>
+        <option value="loft">Loft </option>
+        <option value="townhouse">Townhouse </option>
+        <option value="condominium">Condominium </option>
+        <option value="bungalow">Bungalow </option>
+        <option value="cabin">Cabin </option>
+        <option value="villa">Vila </option>
+        <option value="castle">Castle </option>
+        <option value="dorm">Dorm </option>
+        <option value="treehouse">Treehouse </option>
+        <option value="boat">Boat </option>
+        <option value="plane">Plane </option>
+        <option value="camper">Camper/RV </option>
+        <option value="igloo">Igloo </option>
+        <option value="lighthouse">Lighthouse </option>
+        <option value="yurt">Yurt </option>
+        <option value="tipi">Tipi </option>
+        <option value="cave">Cave </option>
+        <option value="island">Island </option>
+        <option value="chalet">Chalet </option>
+        <option value="earthhouse">Earth House </option>
+        <option value="hut">Hut </option>
+        <option value="train">Train </option>
+        <option value="tent">Tent </option>
+        <option value="other">Other </option>
+    </select>
+
+<input type="submit" name="submit" value="Submit" />
+
+</form>
+</body>
+</html>

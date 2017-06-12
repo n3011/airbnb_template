@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <script src="js/countries.js" type="text/javascript"></script>
+    <script src="js/proptypes.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/plusminus.js"> </script>
+    <script type="text/javascript" src="js/plusminusimp.js"> </script>
+    <script type="text/javascript" src="js/searchtempo.js"> </script>
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" type="text/css">
+   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+
+   <link href="css/datepicker.css" rel="stylesheet">
+   <link href="css/yesno.css" rel="stylesheet">
+    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+     <script type="text/javascript">
+        $(document).ready(function() {
+           $( "#smartpricerange" ).slider({
+                range: true,
+                min: 0,
+                max: 500,
+                values: [ 75, 300 ],
+                slide: function( event, ui ) {
+                      $( "#smartprice" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                }
+            });
+            $( "#smartprice" ).val( "$" + $( "#smartpricerange" ).slider( "values", 0 ) +
+              " - $" + $( "#smartpricerange" ).slider( "values", 1 ) );
+        });
+   </script>
+   <script type="text/javascript">
+        $(document).ready(function() {
+           $( "#leasetermrange" ).slider({
+                range: true,
+                min: 1,
+                max: 24,
+                values: [ 3, 12 ],
+                slide: function( event, ui ) {
+                      $( "#leaseterm" ).val( " " + ui.values[ 0 ] + " - " + ui.values[ 1 ]  + " Months");
+                }
+            });
+            $( "#leaseterm" ).val( " " + $( "#leasetermrange" ).slider( "values", 0 ) +
+              " - " + $( "#leasetermrange" ).slider( "values", 1 )  + " Months");
+        });
+   </script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         $(".placesetting").hide();
+         $("#placelocation").show();
+         $("#locationsetting").click(function() {
+            $(".placesetting").hide();
+            $("#placelocation").show();
+         });
+         $("#typesetting").click(function() {
+            $(".placesetting").hide();
+            $("#placetype").show();
+         });
+         $("#homesetting").click(function() {
+            $(".placesetting").hide();
+            $("#roominfo").show();
+         });
+         $("#amenitiessetting").click(function() {
+            $(".placesetting").hide();
+            $("#placeamenities").show();
+         });
+         $("#aboutmesetting").click(function() {
+            $(".placesetting").hide();
+            $("#aboutme").show();
+         });
+         $("#leaseinfosetting").click(function() {
+            $(".placesetting").hide();
+            $("#leaseinforent").show();
+         });
+         $("#rentrulessetting").click(function() {
+            $(".placesetting").hide();
+            $("#rentrules").show();
+         });
+
+    });
+   </script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         $(".hostsetting").hide();
+         $("#guestfrequency").show();
+         $("#yoursetting").click(function() {
+            $(".hostsetting").hide();
+            $("#guestfrequency").show();
+         });
+         $("#tripsetting").click(function() {
+            $(".hostsetting").hide();
+            $("#triplength").show();
+         });
+         $("#smartpricesetting").click(function() {
+            $(".hostsetting").hide();
+            $("#pricesetting").show();
+         });
+         $("#rulessetting").click(function() {
+            $(".hostsetting").hide();
+            $("#houserules").show();
+         });
+         $("#guestbooksetting").click(function() {
+            $(".hostsetting").hide();
+            $("#howguestbook").show();
+         });
+         $("#locallawsetting").click(function() {
+            $(".hostsetting").hide();
+            $("#locallaw").show();
+         });
+
+    });
+   </script>
+   <script type="text/javascript">
+     $(document).ready(function(){
+      var nowTemp = new Date();
+      var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+      var rentdate = $('#availability').datepicker({
+          onRender: function(date) {
+          return date.valueOf() < now.valueOf() ? 'disabled' : '';
+          }
+       }).on('changeDate', function(ev) {
+          $('.datepicker').hide();
+       });
+      });
+   </script>
+    <script type="text/javascript">
+      $(document).ready(
+        function(){
+          $('#classifyfile').attr('disabled',true);
+          $('#uploadfiles').change(
+            function(){
+              if ($(this).val()){
+                $('#uploadimages').submit();
+              }
+            }
+          );
+        }
+      );
+    </script>
+
+    <style>
+      html, body{
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height:1.5em;
+        color: #232323;
+        -webkit-font-smoothing: antialiased;
+      }
+      fieldset {
+         width: 525px;
+       }
+      .item {
+         float: left;
+         width: 150px;
+       }
+      .nav-pills {
+              text-align:center;
+      }
+      .nav-tabs > li, .nav-pills > li {
+              float:none;
+              display:inline-block;
+              *display:inline; /* ie7 fix */
+              zoom:1; /* hasLayout ie7 trigger */
+      }
+      label {
+        display: inline-block;
+      }
+      #map-canvas{
+        height:100%;
+        width: 100%;
+        margin-top: 60px;
+        padding: 0px
+        z-index: 0
+      }
+      .select-style {
+        padding: 0;
+        margin: 0;
+        border: 1px solid #ccc;
+        width: 220px;
+        border-radius: 3px;
+        overflow: hidden;
+        background-color: #fff;
+        background: #fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+    }
+    .resizetextbox {width: 400px; height: 90px}
+
+    .select-style select {
+        padding: 5px 8px;
+        width: 130%;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+    }
+
+    .select-style select:focus {
+        outline: none;
+    }
+      .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        z-index: 0
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+     .pac-icon{
+    visibility: hidden;
+    width: 0px;
+     }
+
+    .pac-item:hover, .pac-item-selected{
+       background-color: #ff5a5f;
+       color: #ffffff;
+     }
+
+    .pac-item-selected > .pac-item-query, .pac-item:hover > .pac-item-query{
+       color: #ffffff;
+    }
+
+    .pac-container{
+      background-color: #f5f5f5;
+    }
+    .footer {
+        /*clear: both;*/
+        background-color: #33CCCC;
+        position: relative;
+        overflow: hidden
+        /*z-index: 10;*/
+        height: 1em;
+        margin-top: -1em;
+    }
+    #contactform {
+       position: relative;
+       z-index: 1; /* The z-index should be higher than Google Maps */
+       width: 300px;
+       margin: 60px auto 0;
+       padding: 10px;
+       background: black;
+       height: auto;
+       opacity: .45; /* Set the opacity for a slightly transparent Google Form */
+       color: white;
+    }
+   #mapCanvas {
+    width: 800px;
+    height: 600px;
+    float: left;
+  }
+  #infoPanel {
+    float: left;
+    margin-left: 10px;
+  }
+  #infoPanel div {
+    margin-bottom: 5px;
+  }
+
+    </style>
+    <title>Places search box</title>
+
+     <script type="text/javascript">
+    $(function() {
+        $("#calendar1").datepicker();
+    });
+    </script>
+    <script type="text/javascript">
+    $(function() {
+        $("#calendar2").datepicker();
+    });
+    </script>
+
+   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
+   <script>
+var geocoder;
+var map;
+var marker;
+
+codeAddress = function () {
+    geocoder = new google.maps.Geocoder();
+
+  var address = document.getElementById('city_country').value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map = new google.maps.Map(document.getElementById('mapCanvas'), {
+    zoom: 15,
+            streetViewControl: false,
+          mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              mapTypeIds:[google.maps.MapTypeId.HYBRID, google.maps.MapTypeId.ROADMAP]
+    },
+    center: results[0].geometry.location,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+      map.setCenter(results[0].geometry.location);
+      marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          draggable: true,
+          title: 'My Title'
+      });
+      updateMarkerPosition(results[0].geometry.location);
+      updateinput(results[0].geometry.location);
+      geocodePosition(results[0].geometry.location);
+
+      // Add dragging event listeners.
+  google.maps.event.addListener(marker, 'dragstart', function() {
+    updateMarkerAddress('Dragging...');
+  });
+
+  google.maps.event.addListener(marker, 'drag', function() {
+    updateMarkerStatus('Dragging...');
+    updateMarkerPosition(marker.getPosition());
+    updateinput(marker.getPosition());
+  });
+
+  google.maps.event.addListener(marker, 'dragend', function() {
+    updateMarkerStatus('Drag ended');
+    geocodePosition(marker.getPosition());
+      map.panTo(marker.getPosition());
+  });
+
+  google.maps.event.addListener(map, 'click', function(e) {
+    updateMarkerPosition(e.latLng);
+    updateinput(e.latLng);
+    geocodePosition(marker.getPosition());
+    marker.setPosition(e.latLng);
+  map.panTo(marker.getPosition());
+  });
+
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function geocodePosition(pos) {
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses && responses.length > 0) {
+      updateMarkerAddress(responses[0].formatted_address);
+      updateaddress(responses[0].address_components);
+    } else {
+      updateMarkerAddress('Cannot determine address at this location.');
+    }
+  });
+}
+
+function updateMarkerStatus(str) {
+  document.getElementById('markerStatus').innerHTML = str;
+}
+
+function updateinput(latLng) {
+  document.getElementById('lat').value = latLng.lat();
+  document.getElementById('lng').value = latLng.lng();
+}
+function updateaddress(add_components){
+    var address_components = add_components;
+    var components={};
+    jQuery.each(address_components, function(k,v1) {jQuery.each(v1.types, function(k2, v2){components[v2]=v1.long_name});})
+    for (var key in components) {
+        switch(key){
+             case "route":
+                document.getElementById('street').value = components[key];
+                break;
+             case "locality":
+                document.getElementById('locality').value = components[key];
+                break;
+             case "country":
+                document.getElementById('country').value = components[key];
+                break;
+             case "postal_code":
+                document.getElementById('zipcode').value = components[key];
+                break;
+             case "administrative_area_level_1":
+                document.getElementById('state').value = components[key];
+                break;
+             case "administrative_area_level_2":
+                document.getElementById('district').value = components[key];
+                break;
+        }
+    }
+    //document.getElementById('address1').value = components.country;
+}
+function updateMarkerPosition(latLng) {
+  document.getElementById('info').innerHTML = [
+    latLng.lat(),
+    latLng.lng()
+  ].join(', ');
+}
+
+function updateMarkerAddress(str) {
+  document.getElementById('address').innerHTML = str;
+  document.getElementById('address1').value = str;
+}
+   </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.nav-pills > li > a').click( function() {
+        $('.nav-pills > li.active').removeClass('active');
+        $(this).parent().addClass('active');
+     } );
+   });
+  </script>
+    <style>
+      #target {
+        width: 345px;
+      }
+    </style>
+  </head>
+  <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">mVision</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">nEHome</a></li>
+        <!--<li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul> -->
+        <!--</li> -->
+        <li><a href="maps/temporoom/search">Private Room</a></li>
+         <li><a href="/">PG/Hostel</a></li>
+        <li ><a href="/listrent">Rent</a></li>
+        <li class="active"><a href="/roomneed">Post Ad</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" ></span>{{ current_user.firstname}}!</a></li>
+        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-user"></span>   Logout</a></p>
+        {% else %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="{{ url_for('oauth_authorize', provider='facebook') }}"> <span class="glyphicon glyphicon-user"></span>Login with Facebook</a></p>
+        <li><a href="{{ url_for('oauth_authorize', provider='twitter') }}"><span class="glyphicon glyphicon-user"></span>Login with Twitter</a></p>
+        {% endif %}
+       <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login </a></li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="col-xs-12" style="height:100px;"></div>
+
+<div style="width:100%;">
+            <div align="middle">
+	            <form id = "listproptempo" class="form-inline" role="form"
+                            action='/handleform/roomneed' method="POST" enctype="multipart/form-data">
+                <br>
+                <h2 style='color:green;'>Start describing you needs!</h2>
+                <h3 style='color:green;'>Start with the essential information </h3>
+                <p> Address, Beds, Bathrooms, amenities, and more </p>
+                 <div class="tabs-container">
+                   <ul class="nav nav-pills">
+
+                      <li id="locationsetting" class="active"><a
+                                      href="#location">Place Location </a></li>
+                      <li id="aboutmesetting" ><a href="#aboutme">About me </a></li>
+                      <li id="homesetting" class="psettingtab"> <a
+                                      href="#roomtypes">Bedrooms & Bathroom </a></li>
+                      <li id="amenitiessetting" class="psettingtab"><a
+                                      href="#amenities">Amenities </a> </li>
+                      <li id="leaseinfosetting" class="psettingtab"><a
+                                      href="#leaseinfo">Lease Info</a></li>
+                      <li id="rentrulessetting" class="psettingtab"><a
+                                      href="#preference">Roommate Preference</a></li>
+
+                  </ul>
+                </div>
+                <br>
+                <div id="placelocation" class="placesetting">
+
+                    <div id="panel">
+                    <input id="city_country" type="textbox" value="Guwahati, India">
+                    <input type="button" value="Loadmap" onclick="codeAddress()">
+                    </div>
+                    <div>
+                    <div style="float:right;" id="mapCanvas"></div>
+                      <!-- <div id="infoPanel">-->
+                         <b>Marker status:</b>
+                         <div id="markerStatus"><i>Click and drag the marker.</i></div>
+                         <b>Current position:</b>
+                         <div id="info"></div>
+                        <b>Closest matching address:</b>
+                        <div id="address"></div>
+                          <div>
+                          <h4 style="color:green;" align="center">Address: <input id="address1" name="full_address"/></h4>
+                          <h4 style="color:green;" align="center"> Lat: <input id="lat" name="lat"/> </h4>
+                          <h4 style="color:green;" align="center">Lng: <input id="lng" name="lng"/></h4>
+                          <h4 style="color:green;" align="center">Country: <input id="country" name="country"/></h4>
+                          <h4 style="color:green;" align="center">State: <input id="state" name="state"/></h4>
+                          <h4 style="color:green;" align="center">Locality:
+                                  <input id="locality" name="locality"/></h4>
+                          <h4 style="color:green;" align="center">Street: <input id="street" name="street"/></h4>
+                          <h4 style="color:green;" align="center">Zipcode: <input id="zipcode" name="zipcode"/></h4>
+                          <h4 style="color:green;" align="center">District: <input id="district" name="district"/></h4>
+                      <!-- </div>-->
+                   </div>
+                     <h3 style='color:green;'>Max distance from my work place </h3>
+                    <div class="select-style">
+                     <select style="color:green;align:left;" id="distancefromwork" name="distancefromwork">
+                         <option value=0>Walking distance </option>
+                         <option value=1>Max 1km</option>
+                         <option value=2>Max 2km</option>
+                         <option value=3>Max 3km</option>
+                         <option value=4>Max 4km</option>
+                         <option value=5>Max 5km</option>
+                         <option value=6>Max 6km</option>
+                         <option value=90> No requirement </option>
+                     </select>
+                     </div>
+                  </div>
+                </div>
+                  <div id="aboutme" class="placesetting">
+                     <h3 style="color:green;">About me</h3>
+                     <div>
+                    <fieldset>
+                          <div class="item">
+                     Smoker:<input type="checkbox" id="couples1" name="aboutme" value="smoker" class="oval">
+                     <label class="toggler" for="couples1"></label>
+                        </div>
+                          <div class="item">
+                     Drinker:<input type="checkbox" id="oguest1"  name="aboutme" value="drinker" class="oval">
+                     <label class="toggler" for="oguest1"></label>
+                        </div>
+                          <div class="item">
+                     Have pets:<input type="checkbox" id="landlord1" name="aboutme" value="pets" class="oval">
+                     <label class="toggler" for="landlord1"></label>
+                        </div>
+                    </fieldset>
+                    </div>
+                     <h3 style='color:green;'>Profession </h3>
+                    <div class="select-style">
+                     <select style="color:green;align:left;" id="profession" name="profession">
+                         <option value="it">IT Professional </option>
+                         <option value="academic">Academic Personal</option>
+                         <option value="lawyer">Lawyer</option>
+                         <option value="student">Student</option>
+                         <option value="media">Media personal</option>
+                         <option value="others">others</option>
+                     </select>
+                     </div>
+                     <h3 style='color:green;'>Describe more? </h3>
+                     <textarea type="text" name="description" id="description" class="resizetextbox">  </textarea>
+
+                  </div>
+                <div id="roominfo" class="placesetting">
+                    <h3 style='color:green;'>How many bedrooms need?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="nobed">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="nobed" class="form-control input-number" value="1" min="1" max="10">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="nobed">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                     <h2 style='color:green;'>Furnishing type </h3>
+                    <div class="select-style">
+                     <select id="furnishsingtype" name="furnishtype">
+                         <option value="reelbed">Reel Bed </option>
+                         <option value="pulloutsofa">Pull-out Sofa</option>
+                         <option value="airbed">Airbed</option>
+                         <option value="fullyfurnished">Fully Furnished</option>
+                         <option value="mattressonly">Mattress Only</option>
+                         <option value="sofa">Sofa</option>
+                         <option value="unfurnished">Unfurnished</option>
+                         <option value="partialfurnished"> Partially Furnished </option>
+                     </select>
+                     </div>
+                    <h3 style='color:green;'>How many people can stay?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="noguest">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="noguest" class="form-control input-number" value="1" min="1" max="10">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="noguest">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                    <h3 style='color:green;'>How many bathrooms need?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="nobath">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="nobath" class="form-control input-number" value="1" min="1" max="10">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="nobath">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                 </div>
+
+                 <div id="placeamenities" class="placesetting">
+                     <h3 style='color:green;'>What special amenities do you need?</h3>
+                     <div id="amenities">
+                       <fieldset>
+                        <div class="item">
+                        Cooking:<input id="amenities1" type="checkbox" name="amenities" value="cooking" class="oval">
+                         <label class="toggler" for="amenities1"></label>
+                          </div>
+                         <div class="item">
+                        Wifi:<input id="amenities2" type="checkbox" name="amenities" value="wifi" class="oval">
+                         <label class="toggler" for="amenities2"></label>
+                         </div>
+                          <div class="item">
+                        TV:<input id="amenities4" type="checkbox" name="amenities" value="tv" class="oval">
+                         <label class="toggler" for="amenities4"></label>
+                        </div>
+                         <div class="item">
+                        Air Contioning:<input id="amenities5" type="checkbox" name="amenities" value="ac" class="oval">
+                         <label class="toggler" for="amenities5"></label>
+                         </div>
+                          <div class="item">
+                        Iron:<input id="amenities6" type="checkbox" name="amenities" value="iron" class="oval">
+                         <label class="toggler" for="amenities6"></label>
+                         </div>
+                         <div class="item">
+                        Wardrobe:<input id="amenities7" type="checkbox" name="amenities" value="wardrobe" class="oval">
+                         <label class="toggler" for="amenities7"></label>
+                        </div>
+                        <div class="item">
+                        Heater:<input id="amenities8" type="checkbox" name="amenities" value="geaser" class="oval">
+                         <label class="toggler" for="amenities8"></label>
+                          </div>
+                          <div class="item">
+                        Washing machine:<input id="amenities14" type="checkbox" name="amenities" value="washer" class="oval">
+                         <label class="toggler" for="amenities14"></label>
+                        </div>
+                          <div class="item">
+                        Security:<input id="amenities17" type="checkbox" name="amenities" value="security" class="oval">
+                         <label class="toggler" for="amenities17"></label>
+                        </div>
+                      </fieldset>
+                     </div>
+                 </div>
+                 <div id="leaseinforent" class="placesetting">
+                    <h4 style="color:green;">Price/Month:</h4>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="pricemonth">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="pricemonth" class="form-control input-number" value="100" min="15" max="1000">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="pricemonth">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                    <h4 style="color:green;">Available Date:</h4>
+                     <input id="availability" type="text" name="availability" placeholder="dd/mm/yyyy"/>
+                     <p><h4 style="color:green;"><label for="leaseterm">Lease term:</label> </h4>
+                           <input type="text" id="leaseterm" name="leaseterm" readonly style="border:0; color:#f6931f; font-weight:bold;"/> </p>
+                          <div id="leasetermrange"></div>
+                 </div>
+                  <div id="rentrules" class="placesetting">
+                     <h3 style="color:green;">Roommate preference</h3>
+                     <div id="preference">
+                    <fieldset>
+                          <div class="item">
+                     Couples accepted:<input type="checkbox" id="couples" name="rentrules" value="couples_accepted" class="oval">
+                     <label class="toggler" for="couples"></label>
+                        </div>
+                          <div class="item">
+                     Overnight guest:<input type="checkbox" id="oguest"  name="rentrules" value="overnight_guest" class="oval">
+                     <label class="toggler" for="oguest"></label>
+                        </div>
+                          <div class="item">
+                     Landlord present:<input type="checkbox" id="landlord" name="rentrules" value="landlord_present" class="oval">
+                     <label class="toggler" for="landlord"></label>
+                        </div>
+                          <div class="item">
+                     Smoking allowed:<input type="checkbox" id="smoking" name="rentrules" value="smoking" class="oval">
+                     <label class="toggler" for="smoking"></label>
+                        </div>
+                          <div class="item">
+                     Drinking allowed:<input type="checkbox" id="drinking" name="rentrules" value="drinking" class="oval">
+                     <label class="toggler" for="drinking"></label>
+                        </div>
+                          <div class="item">
+                     Events or Party allowed:<input type="checkbox" id="party" name="rentrules" value="party" class="oval">
+                     <label class="toggler" for="party"></label>
+                        </div>
+                          <div class="item">
+                     Pets Accepted:<input type="checkbox" id="extraguest" name="rentrules" value="pets" class="oval">
+                     <label class="toggler" for="extraguest"></label>
+                        </div>
+                          <div class="item">
+                     Late Night Entry:<input type="checkbox" id="latenight" name="rentrules" value="latenight" class="oval">
+                     <label class="toggler" for="latenight"></label>
+                        </div>
+                    </fieldset>
+                    </div>
+                  </div>
+                 <div id="searchbutton">
+                   <br> <p><class="submit"><input type="submit" name="publishad" value="Publish Ad"></p>
+                    <br>
+                 </div>
+                </form>
+            </div>
+
+ </div>
+
+</body>
+
+</html>

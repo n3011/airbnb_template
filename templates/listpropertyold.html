@@ -1,0 +1,572 @@
+{% extends "base.html" %}
+
+{% block title %}mVision{% endblock %}
+
+{% block content %}
+
+
+
+<!--The code add the navigation bar with bottom toggle option also possiblity of dropdown menus -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">nEHome</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">nEHome</a></li>
+        <!--<li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul> -->
+    
+        <li><a href="/maps/temporoom/search">Private Room</a></li>
+	 <li><a href="/clfgender.html">PG/Hostel</a></li>
+        <li><a href="/clfcar.html">Rent</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user" ></span>{{ current_user.firstname}}!</a></li>
+        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-user"></span>   Logout</a></p>
+        {% else %}
+        <li class="active"> <a href="/listproperty"><span class="glyphicon glyphicon-home"></span>List Your Property</a></li>
+        <li><a href="{{ url_for('oauth_authorize', provider='facebook') }}"> <span class="glyphicon glyphicon-user"></span>Login with Facebook</a></p>
+        <li><a href="{{ url_for('oauth_authorize', provider='twitter') }}"><span class="glyphicon glyphicon-user"></span>Login with Twitter</a></p>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<hr>
+<!-- Start of vertical split-->
+<body>
+<div style="width:100%;">
+            <div align="left">
+	            <form id = "listproptempo" class="form-inline" role="form" action='/tempo/listproperty' method="POST" enctype="multipart/form-data">
+                <br>
+                <h2 style='color:green;'>Start Serving The Lone Travelers!</h2>
+                <h3 style='color:green'>Step1</h3>
+                <h3 style='color:green;'>Start with the essential information </h3>
+                <p> Address, Beds, Bathrooms, amenities, and more </p>
+                 <div class="tabs-container">
+                   <ul class="nav nav-pills">
+                     
+                      <li id="locationsetting" class="psettingtab"><a href="#">Place Location </a></li>
+                      <li id="typesetting" class="psettingtab"> <a href="#">Place Type </a> </li>
+                      <li id="homesetting" class="psettingtab"> <a href="#">Bedrooms & Bathroom </a></li> 
+                      <li id="amenitiessetting" class="psettingtab"><a href="#">Amenities </a> </li> 
+                      <li id="idealforsetting" class="psettingtab"><a href="#">Ideal For</a> </li>
+                      <li id="locallawsetting" class="psettingtab"><a href="#">Local law and regulations </a></li>
+                 
+                  </ul> 
+                </div>
+                <div id="placelocation" class="placesetting">
+                    <h2 style='color:green'>Where's your place located?</h3>
+                    <p> Country </p>
+                    <select id="country" name ="country"></select>
+                    <p> State </p> 
+                    <select name ="state" id ="state"></select>
+                    <script language="javascript">
+                        populateCountries("country", "state");
+                    </script>
+                    <p> Street Address </p>
+                    <p><input type="text" name="streetaddress" value="" placeholder="House name/number + street/road"></p>
+                    <p> Apt/Building/Unit </p>
+                    <p><input type="text"  name ="aptunit" placeholder="Floor Number + Unit Number" /><p>
+                    <p>City/Landmark </p>
+                    <p><input type="text" name="city" placeholder="Nearest well known place" />
+                    </p>
+                    <p> ZIP Code </p>
+                    <p><input type="number" name="zipcode" placeholder="781029"/></p>
+                </div>
+                <div id="placetype" class="placesetting">
+                    <h2 style='color:green;'>What kind of place are you Listing?</h2>
+                    <div id="placetype">
+                        <label> <span class="glyphicon glyphicon-home"> </span>Entire Unit <input type="radio" name="placetype" value="entire"></label><br>
+                        <label><span class="glyphicon glyphicon-home"></span>Private Room<input type="radio" name="placetype" value="private"> </label><br>
+                        <label><span class="glyphicon glyphicon-home"></span>Shared Room <input type="radio" name="placetype" value="shared"> </label>   <br>
+                    </div>
+
+                    <h3 style='color:green;'>What type of property is this?</h3>
+                    <select>
+                        <option value="apartment">Apartment </option>
+                        <option value="house">House </option>
+                        <option value="bedBreakfast">Bed & Breakfast </option>
+                        <option value="loft">Loft </option>
+                        <option value="townhouse">Townhouse </option>
+                        <option value="condominium">Condominium </option>
+                        <option value="bungalow">Bungalow </option>
+                        <option value="cabin">Cabin </option>
+                        <option value="villa">Vila </option>
+                        <option value="castle">Castle </option>
+                        <option value="dorm">Dorm </option>
+                        <option value="treehouse">Treehouse </option>
+                        <option value="boat">Boat </option>
+                        <option value="plane">Plane </option>
+                        <option value="camper">Camper/RV </option>
+                        <option value="igloo">Igloo </option>
+                        <option value="lighthouse">Lighthouse </option>
+                        <option value="yurt">Yurt </option>
+                        <option value="tipi">Tipi </option>
+                        <option value="cave">Cave </option>
+                        <option value="island">Island </option>
+                        <option value="chalet">Chalet </option>
+                        <option value="earthhouse">Earth House </option>
+                        <option value="hut">Hut </option>
+                        <option value="train">Train </option>
+                        <option value="tent">Tent </option>
+                        <option value="other">Other </option>
+                    </select>
+                </div>
+                <div id="roominfo" class="placesetting">
+                    <h3 style='color:green;'>How big is your place?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="nobed">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="nobed" class="form-control input-number" value="1" min="1" max="100">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="nobed">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                      <div>
+                         <input type='button' value='-' class='qtyminus' field='nobed' />
+                         <input type='text' name='nobed' value='1' class='qty' />
+                         <input type='button' value='+' class='qtyplus' field='nobed' />
+                     </div>
+                     <h4 style:'color:green;'>Bed type </h4>
+                     <select>
+                         <option value="realbed">Real Bed </option>
+                         <option value="pulloutsofa">Pull-out Sofa</option>
+                         <option value="airbed">Airbed</option>
+                         <option value="futon">Futon</option>
+                         <option value="mattressonly">Mattress Only</option>
+                         <option value="sofa">Sofa</option>
+                     </select>
+                    <h3 style='color:green;'>How many guests can stay?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="noguest">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="noguest" class="form-control input-number" value="2" min="1" max="100">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="noguest">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                      <div>
+                         <input type='button' value='-' class='qtyminus' field='noguest' />
+                         <input type='text' name='noguest' value='2' class='qty' />
+                         <input type='button' value='+' class='qtyplus' field='noguest' />
+                     </div>
+                    <h3 style='color:green;'>How many bathrooms?</h3>
+                         <div class="left">
+                             <p>
+                             </p><div class="input-group">
+                              <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="nobath">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                               </span>
+                           <input type="text" name="nobath" class="form-control input-number" value="1" min="1" max="100">
+                             <span class="input-group-btn">
+                           <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="nobath">
+                          <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            </span>
+                           </div>
+                       <p></p>
+                      </div>
+                      <div>
+                         <input type='button' value='-' class='qtyminus' field='nobath' />
+                         <input type='text' name='nobath' value='1' class='qty' />
+                         <input type='button' value='+' class='qtyplus' field='nobath' />
+                     </div>
+                 </div>
+            
+                 <div id="placeamenities" class="placesetting">
+                     <h3 style='color:green;'>What special amenities do your place offer?</h3>
+                     <div class="amenities">
+                       <fieldset>
+                        <div class="item"> 
+                        Essentials (Towels, bed sheets, soap and toilet paper):<input id="amenities1" type="checkbox" name="amenities" value="essentials" class="oval">
+                         <label class="toggler" for="amenities1"></label> 
+                          </div>
+                         <div class="item">
+                        Wifi:<input id="amenities2" type="checkbox" name="amenities" value="wifi" class="oval"> 
+                         <label class="toggler" for="amenities2"></label> 
+                         </div>
+                          <div class="item">
+                        TV:<input id="amenities4" type="checkbox" name="amenities" value="tv" class="oval"> 
+                         <label class="toggler" for="amenities4"></label> 
+                        </div> 
+                         <div class="item">
+                        Air Contioning:<input id="amenities5" type="checkbox" name="amenities" value="ac" class="oval"> 
+                         <label class="toggler" for="amenities5"></label> 
+                         </div>
+                          <div class="item">
+                        Iron:<input id="amenities6" type="checkbox" name="amenities" value="iron" class="oval"> 
+                         <label class="toggler" for="amenities6"></label> 
+                         </div>
+                         <div class="item">
+                        Wardrobe:<input id="amenities7" type="checkbox" name="amenities" value="wardrobe" class="oval"> 
+                         <label class="toggler" for="amenities7"></label> 
+                        </div>
+                        <div class="item">
+                        Heater:<input id="amenities8" type="checkbox" name="amenities" value="geaser" class="oval"> 
+                         <label class="toggler" for="amenities8"></label> 
+                          </div>
+                         <div class="item">
+                        Hair dryer:<input id="amenities9" type="checkbox" name="amenities" value="dryer" class="oval"> 
+                         <label class="toggler" for="amenities9"></label> 
+                        </div>
+                            <div class="item">
+                        Breakfast, Coffe, Tea:<input id="amenities10" type="checkbox" name="amenities" value="breakfast" class="oval">
+                         <label class="toggler" for="amenities10"></label> 
+                        </div>
+                         <div class="item">
+                        Fireplace:<input id="amenities11" type="checkbox" name="amenities" value="fireplace" class="oval"> 
+                         <label class="toggler" for="amenities11"></label> 
+                        </div>
+                        <div class="item">
+                        Workspace:<input id="amenities12" type="checkbox" name="amenities" value="cupboard" class="oval"> 
+                         <label class="toggler" for="amenities12"></label> 
+                        </div>
+                          <div class="item">
+                        Washing machine:<input id="amenities14" type="checkbox" name="amenities" value="washer" class="oval"> 
+                         <label class="toggler" for="amenities14"></label> 
+                        </div>
+                         <div class="item">
+                        Cooking:<input id="amenities15" type="checkbox" name="amenities" value="cooking" class="oval"> 
+                         <label class="toggler" for="amenities15"></label> 
+                        </div>
+                         <div class="item">
+                        Pets in the house:<input id="amenities16" type="checkbox" name="amenities" value="petowner" class="oval"> 
+                         <label class="toggler" for="amenities16"></label> 
+                         </div>
+                          <div class="item">
+                        Security:<input id="amenities17" type="checkbox" name="amenities" value="security" class="oval"> 
+                         <label class="toggler" for="amenities17"></label> 
+                        </div>
+                      </fieldset>
+                     </div>
+                     <h4 style='color:green;'>What special safety amenities do your place offer?</h4>
+                     <div class="samenities">
+                        <fieldset>
+                          <div class="item">
+                        Essentials (Towels, bed sheets, soap and toilet paper):<input id="samenities1" type="checkbox" name="samenities" value="essentials" class="oval">
+                         <label class="toggler" for="samenities1"></label> 
+                          </div>
+                          <div class="item">
+                        Smoke detector:<input id="samenities2" type="checkbox" name="samenities" value="wifi" class="oval"> 
+                         <label class="toggler" for="samenities2"></label> 
+                          </div>
+                          <div class="item">
+                        Carbon monoxide detector:<input id="samenities3" type="checkbox" name="samenities" value="shampoo" class="oval"> 
+                         <label class="toggler" for="samenities3"></label> 
+                          </div>
+                          <div class="item">
+                        First aid kit:<input id="samenities4" type="checkbox" name="samenities" value="tv" class="oval"> 
+                         <label class="toggler" for="samenities4"></label> 
+                          </div>
+                          <div class="item">
+                        Safety card:<input id="samenities5" type="checkbox" name="samenities" value="ac" class="oval"> 
+                         <label class="toggler" for="samenities5"></label> 
+                          </div>
+                          <div class="item">
+                        Fire extinguisher:<input id="samenities6" type="checkbox" name="samenities" value="iron" class="oval"> 
+                         <label class="toggler" for="samenities6"></label> 
+                          </div>
+                          <div class="item">
+                        Lock on bedroom door:<input id="samenities7" type="checkbox" name="samenities" value="iron" class="oval"> 
+                         <label class="toggler" for="samenities7"></label> 
+                          </div>
+                       </fieldset>
+                     </div>
+                     <h3 style='color:green;'>What spaces can guests use?</h3>
+                     <div class="guestspace">
+                       <fieldset>
+                          <div class="item">
+                        Kitchen:<input id="gamenities1" type="checkbox" name="guestspace" value="kitchen" class="oval"> 
+                         <label class="toggler" for="gamenities1"></label> 
+                          </div>
+                          <div class="item">
+                        Laundry washer:<input id="gamenities2" type="checkbox" name="guestspace" value="laundry_washer" class="oval"> 
+                         <label class="toggler" for="gamenities2"></label> 
+                          </div>
+                          <div class="item">
+                        Laundry dryer:<input id="gamenities3" type="checkbox" name="guestspace" value="laundry_dryer" class="oval"> 
+                         <label class="toggler" for="gamenities3"></label> 
+                          </div>
+                          <div class="item">
+                        Perking space:<input id="gamenities4" type="checkbox" name="guestspace" value="perking_space" class="oval"> 
+                         <label class="toggler" for="gamenities4"></label> 
+                          </div>
+                          <div class="item">
+                        Lift:<input id="gamenities5" type="checkbox" name="guestspace" value="life" class="oval"> 
+                         <label class="toggler" for="gamenities5"></label> 
+                          </div>
+                          <div class="item">
+                        Hot tub:<input id="gamenities6" type="checkbox" name="guestspace" value="hot_tub" class="oval">
+                         <label class="toggler" for="gamenities6"></label> 
+                          </div>
+                          <div class="item">
+                        Gym:<input id="gamenities7" type="checkbox" name="guestspace" value="gym" class="oval"> 
+                         <label class="toggler" for="gamenities7"></label> 
+                          </div>
+                          <div class="item">
+                        Garden:<input id="gamenities8" type="checkbox" name="guestspace" value="garden" class="oval"> 
+                         <label class="toggler" for="gamenities8"></label> 
+                          </div>
+                          <div class="item">
+                        Common TV:<input id="gamenities9" type="checkbox" name="guestspace" value="common_tv" class="oval"> 
+                         <label class="toggler" for="gamenities9"></label> 
+                          </div>
+                       </fieldset>
+                     </div>
+
+                 </div>
+
+                 <div id="placefor" class="placesetting">
+
+                    <h3 style='color:green;'>Describe you place</h3>
+                      <select id="placedescription" multiple="multiple">
+                           <option value="ambiance">The ambiance</option>
+                           <option value="neighbourhood">The neighbourhood</option>
+                           <option value="airport">Near to the aiport</option>
+                           <option value="comfybed">The comfy bed</option>
+                           <option value="outdoor">The outdoor space</option>
+                           <option value="serenity">Serenity</option>
+                     </select>
+                     <h3 style='color:green;'>My place ideal for?</h3>
+                     <div class="guestprefer">
+                        <input id="amenities1" type="checkbox" name="guestprefer" value="couples"> Couples<br>
+                        <input id="amenities2" type="checkbox" name="guestprefer" value="family_with_child"> Family with childs<br>
+                        <input id="amenities3" type="checkbox" name="guestprefer" value="business_person"> Business Person<br>
+                        <input id="amenities4" type="checkbox" name="guestprefer" value="solo_adventures"> Solo adentures<br>
+                        <input id="amenities5" type="checkbox" name="guestprefer" value="bachelor_groups"> Bachelor groups <br>
+                        <input id="amenities6" type="checkbox" name="guestprefer" value="students"> Students<br>
+                        <input id="amenities7" type="checkbox" name="guestprefer" value="person_witn_pets"> Person with pets<br>
+                        <input id="amenities8" type="checkbox" name="guestprefer" value="women"> Women/Girl<br>
+                        <input id="amenities9" type="checkbox" name="guestprefer" value="accessible"> Accessible<br>
+                      </div>
+                 </div>
+
+
+                 <h2 style='color:green;'> Get ready for guests </h2>
+                 <h4 style='color:green;'>Price, calender, bookings etc</h4>
+                <div class="tabs-container">
+                 <ul class="nav nav-pills">
+                    <li id="yoursetting" class="hsettingtab"><a href="#">Your Setting</a></li> 
+                    <li id="tripsetting" class="hsettingtab"> <a href="#">Trip Length</a></li> 
+                    <li id="smartpricesetting" class="hsettingtab"><a href="#">Smart Pricing</a></li>
+                    <li id="rulessetting" class="hsettingtab"><a href="#"> House rules</a></li> 
+                    <li id="guestbooksetting" class="hsettingtab"><a href="#">How guest book</a></li> 
+                    <li id="locallawsetting" class="hsettingtab"><a href="#">Local law and regulations</a></li> 
+                  </ul> 
+                </div> 
+
+                 <h2 style='color:green;'>How often do you want to have guests?</h2>
+                 <div id="guestfrequency" class="hostsetting">
+                 <label> <span class="glyphicon glyphicon-home"> </span>As often as possible <input type="radio" name="guestfrequency" value="entire"></label>
+                 <label><span class="glyphicon glyphicon-home"></span>Part time<input type="radio" name="guestfrequency" value="private"> </label>
+                 <label><span class="glyphicon glyphicon-home"></span>Not sure yet <input type="radio" name="guestfrequency" value="shared"> </label>   
+                 <h3 style='color:green;'>Calender</h3>
+                 <h4> Availability </h4>
+                 <p>Advance Notice</p>
+                <select id="advancenotice">
+                    <option value="sameday">Same Day </option>
+                    <option value="1day">1 Day </option>
+                    <option value="2day">2 Days </option>
+                    <option value="3day">3 Days </option>
+                    <option value="7day">7 Days </option>
+                </select>
+                <p>1 day advance notice means guests can’t book and arrive the same day. You’ll always get 24 hours’ notice.</p>
+                <p> Preparation Time </p>
+                <select id="preptime">
+                    <option value="no">No Preparation Time </option>
+                    <option value="1day">1 Day </option>
+                    <option value="2day">2 Days </option>
+                </select>
+                <p> If you need time to prepare, block a day or 2 between reservations.</p>
+                <p> Booking Window </p>
+                <select id="bookingwindow">
+                    <option value="anytime">No Preparation Time </option>
+                    <option value="1month">1 Month </option>
+                    <option value="2month">2 Months </option>
+                    <option value="3month">3 Months </option>
+                    <option value="6month">6 Months </option>
+                    <option value="1year">1 Year </option>
+                </select>
+                <p>You won’t receive a reservation farther out than the window you choose.</p>
+                 </div>
+                 <div id="triplength" class="hostsetting">
+                    
+                <h3 style='color:green;'>Minimum nights?</h3>
+                     <div class="left">
+                         <p>
+                         </p><div class="input-group">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="minday">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                           </span>
+                       <input type="text" name="minday" class="form-control input-number" value="2" min="1" max="100">
+                         <span class="input-group-btn">
+                       <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="minday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        </span>
+                       </div>
+	               <p></p>
+                  </div>
+                <h3 style='color:green;'>Maximum nights?</h3>
+                     <div class="left">
+                         <p>
+                         </p><div class="input-group">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="maxday">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                           </span>
+                       <input type="text" name="maxday" class="form-control input-number" value="2" min="1" max="100">
+                         <span class="input-group-btn">
+                       <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="maxday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        </span>
+                       </div>
+	               <p></p>
+                  </div>
+                 </div>
+
+                 <div id="pricesetting" class="hostsetting">
+                     <div id="smartpricing">
+                         <h2 style="color:green;">Smart Pricing</h2>
+                         <h3 style="color:blue;">Set a price range</h3>
+                         <p>Your price will automatically adjust within the range you set.</p>
+                         <p>
+                           <label for="smartprice">Price range:</label>
+                           <input type="text" id="smartprice" readonly style="border:0; color:#f6931f; font-weight:bold;"/>
+                         </p>   
+                         <div id="smartpricerange"></div>
+                         <h2 style="color:green;">Set a default nightly price</h2>
+                         <p>For reservations that are more than 4 months away, guests will see this price.</p>
+                         <input id="baseprice" name="baseprice" value="50" placeholder="/per night"/>
+                         <h3> Currency </h3>
+                        <select id="currency">
+                            <option value="inr">INR </option>
+                            <option value="usd">USD </option>
+                            <option value="sgd">SGD </option>
+                            <option value="cad">CAD </option>
+                            <option value="aud">AUD </option>
+                            <option value="eur">EUR </option>
+                        </select>
+                         <h3> How often do you want to host </h3>
+                        <select id="hostfrequency">
+                            <option value="fulltime">As often as possible </option>
+                            <option value="parttime">Part-time </option>
+                        </select>
+                     </div>
+                     <div id="discount">
+                         <h3 style="color:green;">Additional Pricing</h3>
+                         <p>Discount for longer days</p>
+                         <p>Weekly Discount: <input id="weekdiscount" name="weekdiscount"/> </p>
+                         <p>Monthly Discount: <input id="monthdiscount" name="monthdiscount" /></p>
+                     </div>
+                 </div>
+                 <div id="houserules" class="hostsetting">
+                     <h3 style="color:green;">Set house rules for your guests</h3>
+                     <fieldset>
+                     <div class="item">
+                     Child-friendly (3-12 years):<input type="checkbox" id="childfriendly" class="oval">
+                     <label class="toggler" for="childfriendly"></label> 
+                     </div>
+                     <div class="item">
+                     Infant-friendly (3-12 years):<input type="checkbox" id="infantfriendly" class="oval">
+                     <label class="toggler" for="infantfriendly"></label> 
+                     </div>
+                     <div class="item">
+                     Suitable for pets:<input type="checkbox" id="petsfriendly" class="oval">
+                     <label class="toggler" for="petsfriendly"></label> 
+                     </div>
+                     <div class="item">
+                     Smoking allowed:<input type="checkbox" id="smoking" class="oval">
+                     <label class="toggler" for="smoking"></label> 
+                     </div>
+                     <div class="item">
+                     Drinking allowed:<input type="checkbox" id="drinking" class="oval">
+                     <label class="toggler" for="drinking"></label> 
+                     </div>
+                     <div class="item">
+                     Events or Party allowed:<input type="checkbox" id="party" class="oval">
+                     <label class="toggler" for="party"></label> 
+                     </div>
+                     <div class="item">
+                     Extra guests:<input type="checkbox" id="extraguest" class="oval">
+                     <label class="toggler" for="extraguest"></label> 
+                     </div>
+                   </fieldset>
+                 </div>
+                 <div id="howguestbook" class="hostsetting">
+                      <h3 style="color:green;">Who can book instantly? </h3>
+                      <label> <span class="glyphicon glyphicon-home"> </span>Everyone who agrees to my House Rules. <input type="radio" name="placetype" value="agreerules"></label> <br>
+                      <label><span class="glyphicon glyphicon-home"></span>Only guests who agree to my House Rules and are recommended by other hosts. <input type="radio" name="placetype" value="recommend"> </label><br>
+                      <label><span class="glyphicon glyphicon-home"></span>No one. I’ll read and approve every request within 24 hours.  <input type="radio" name="placetype" value="24hr"> </label>   <br>
+
+                 </div>
+                 <div id="locallaw" class="hostsetting">
+                    <h3 style="color:red;">Your local laws and taxes. </h3>
+                    <h4 style="color:red;"> Please educate yourself about the laws in your jurisdiction before listing your space. </h4>
+                    <p>
+                       Most cities have rules covering homesharing, and the specific codes and ordinances can appear in many places 
+                       (such as zoning, building, licensing or tax codes). In most places, you must register, get a permit, or obtain 
+                       a license before you list your property or accept guests. You may also be responsible for collecting and remitting 
+                       certain taxes. In some places, short-term rentals could be prohibited altogether.<br>
+                       Since you are responsible for your own decision to list or book, you should get comfortable with the applicable rules 
+                       before listing on Airbnb. To get you started, we offer some helpful resources under “Your City Laws.” <br>
+                       By accepting our Terms of Service and listing your space, you certify that you will follow applicable laws and regulations.
+                    </p>
+                 </div>
+                
+
+                <p><class="submit"><input type="submit" name="Search" value="Search"></p>
+                <br><br> 
+                </form>
+            </div> 
+     
+
+
+ </div>
+
+
+ 
+
+ <!--End of Vertical Split-->
+ <hr>
+ </body>
+{% endblock %}

@@ -1,0 +1,106 @@
+input[type=checkbox].oval{
+    visibility: hidden;
+}
+
+label.toggler{ /* Label "track" style */
+    width: 85px; /* width of label */
+    height: 35px; /* height of label */
+    position: relative;
+    display: block; /* change "block" to "inline-block" if you want toggler to appear inline with other content next to it */
+    border-radius: 25px;
+    box-shadow: 8px 2px 8px rgba(0,0,0,0.7) inset, -7px 1px 8px rgba(0,0,0,0.7) inset; /* default gray shadow */
+    left: 0;
+    top: 0;
+    background: #7A7A7A; /* default tray background */
+    z-index: 50;
+    font: bold 12px Arial;
+    cursor: pointer;
+}
+
+label.toggler::before{ /* label "off" state text */
+    text-shadow: 0 -2px 1px #8a8a8a;
+    content: 'NO';
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 64%;
+}
+
+label.toggler::after{ /* Round Knob "off" state */
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    box-shadow: 0 5px 10px rgba(0,0,0,.5), 2px -5px 5px rgba(0,0,0,.2) inset;
+    position: absolute;
+    top: -5px;
+    left: 0px;
+    background: rgb(255,255,255); /* knob style gradient */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(224,224,224,1) 37%, rgba(186,186,186,1) 38%, rgba(244,244,244,1) 48%, rgba(252,252,252,1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(37%,rgba(224,224,224,1)), color-stop(38%,rgba(186,186,186,1)), color-stop(48%,rgba(244,244,244,1)), color-stop(100%,rgba(252,252,252,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(224,224,224,1) 37%,rgba(186,186,186,1) 38%,rgba(244,244,244,1) 48%,rgba(252,252,252,1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(224,224,224,1) 37%,rgba(186,186,186,1) 38%,rgba(244,244,244,1) 48%,rgba(252,252,252,1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(224,224,224,1) 37%,rgba(186,186,186,1) 38%,rgba(244,244,244,1) 48%,rgba(252,252,252,1) 100%);
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(224,224,224,1) 37%,rgba(186,186,186,1) 38%,rgba(244,244,244,1) 48%,rgba(252,252,252,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcfcfc',GradientType=1 );
+}
+
+input[type=checkbox]:checked + label{ /* Label "track" "on" style */
+    background: #9FBA48; /* green background */
+    box-shadow: 8px 2px 8px rgba(58,145,34,0.7) inset, -7px 1px 8px rgba(58,145,34,0.7) inset; /* green shadow */
+}
+
+input[type=checkbox]:checked + label::before{ /* label "on" state text */
+    content: 'YES';
+    left: 11%;
+}
+
+input[type=checkbox]:checked + label::after{ /* Round Knob "on" state */
+    left: 45px;
+}
+
+
+
+/* ############ red theme ############# */
+
+input[type=checkbox]:checked + label.red{ /* Label "track" "on" style */
+    background: #C64141; /* green background */
+    box-shadow: 8px 2px 8px rgba(130,20,20,0.7) inset, -7px 1px 8px rgba(130,20,20,0.7) inset; /* red shadow */
+}
+
+/* ############ orange theme ############# */
+
+input[type=checkbox]:checked + label.orange{ /* Label "track" "on" style */
+    background: #ED9F0E; /* orange background */
+    box-shadow: 8px 2px 8px rgba(219, 116, 13,0.7) inset, -7px 1px 8px rgba(219, 116, 13,0.7) inset; /* orange shadow */
+}
+
+/* ############ yellow theme ############# */
+
+label.yellow::before{ /* label "off" state text */
+    color: white;
+}
+
+input[type=checkbox]:checked + label.yellow::before{ /* label "on" state text */
+    color: black;
+    text-shadow: 0 -2px 1px #eee;
+}
+
+input[type=checkbox]:checked + label.yellow{ /* Label "track" "on" style */
+    color: black;
+    background: #E8E009; /* yellow background */
+    box-shadow: 8px 2px 8px rgba(224, 196, 83,0.7) inset, -7px 1px 8px rgba(224, 196, 83,0.7) inset; /* yellow shadow */
+}
+
+/* ############ blue theme ############# */
+
+input[type=checkbox]:checked + label.blue{ /* Label "track" "on" style */
+    background: #0DBDD8; /* blue background */
+    box-shadow: 8px 2px 8px rgba(17, 120, 175,0.7) inset, -7px 1px 8px rgba(17, 120, 175,0.7) inset; /* blue shadow */
+}
