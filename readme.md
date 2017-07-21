@@ -3,5 +3,5 @@
 
 ## Requirements
 
-  Flask
-
+  1. Flask
+  2. Cassandra
